@@ -17,6 +17,13 @@ const routes: RouteConfig[] = [
     element: lazy(() => import('@/pages/Home')),
     meta: {
       title: '首页'
+    },
+  },
+  {
+    path: 'login',
+    element: lazy(() => import('@/pages/Login')),
+    meta: {
+      title: '登录'
     }
   }
 ]

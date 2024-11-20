@@ -1,33 +1,41 @@
-import { createElement, Suspense } from 'react'
-import { Routes, Route } from 'react-router-dom'
-import routes, { RouteConfig } from '@/router/index'
+import { RouteConfig } from '@/router';
+import React, { memo, Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
-const renderRoutes = (routes: RouteConfig[]) => {
-  return routes.map((route) => {
-    if (route.children) {
-      return (
-        <Route key={route.path} path={route.path}>
-          {renderRoutes(route.children)}
-        </Route>
-      )
-    }
-    
-    return (
-      <Route
-        key={route.path}
-        path={route.path}
-        element={
-          <Suspense fallback={<div>加载中...</div>}>
-            {route.element && createElement(route.element)}
-          </Suspense>
+const RenderRouter = (props: any) => {
+  const { routers = [] } = props;
+  const routeLoop = (routerList: RouteConfig[]) => {
+    if (routerList && routerList.length > 0) {
+      const output: React.ReactElement[] = [];
+      routerList.forEach((item, index) => {
+        const { element: Com, children, ...routeProps } = item as any;
+        const thisRouteProps = { ...routeProps };
+        const childrenRoutes = children && routeLoop(children);
+
+        if (Com) {
+          thisRouteProps.element = (
+            <Suspense fallback={<div>加载中...</div>}>
+              <Com />
+            </Suspense>
+          );
         }
-      />
-    )
-  })
-}
 
-const RouterConfig = () => {
-  return <Routes>{renderRoutes(routes)}</Routes>
-}
+        output.push(
+          <Route key={`${item.path}_${index}`} {...thisRouteProps}>
+            {childrenRoutes}
+          </Route>,
+        );
+      });
+      return output;
+    }
+    return null;
+  };
 
-export default RouterConfig
+  return <Routes>{routeLoop(routers)}</Routes>;
+};
+
+const areEqual = () => {
+  return false;
+};
+
+export default memo(RenderRouter, areEqual);
