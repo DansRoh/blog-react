@@ -8,28 +8,26 @@ const Login = () => {
   const navigate = useNavigate()
 
   const onFinish = async (values: any) => {
-    const { code, data } = await login(values)
-    if (code === 0) {
-      localStorage.setItem('token', data.access_token)
-      message.success('登录成功')
-      navigate('/')
-    }
+    const data = await login(values)
+    localStorage.setItem('token', data.access_token)
+    message.success('登录成功')
+    navigate('/')
   }
 
   return (
     <div className={styles.login}>
       <Form onFinish={onFinish} className={styles.form} form={form}>
-      <Form.Item label="昵称" name="nickname">
-        <Input />
-      </Form.Item>
-      <Form.Item label="密码" name="password">
-        <Input.Password />
-      </Form.Item>
-      <Form.Item>
-        <Button htmlType="submit" type="primary">登录</Button>
-      </Form.Item>
-    </Form>
-  </div>
+        <Form.Item label="昵称" name="nickname">
+          <Input />
+        </Form.Item>
+        <Form.Item label="密码" name="password">
+          <Input.Password />
+        </Form.Item>
+        <Form.Item>
+          <Button htmlType="submit" type="primary">登录</Button>
+        </Form.Item>
+      </Form>
+    </div>
   )
 }
 

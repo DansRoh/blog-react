@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { message } from 'antd';
 
 // 创建 axios 实例
 const service = axios.create({
@@ -30,7 +31,10 @@ service.interceptors.response.use(
     // 对响应数据做点什么
     const res = response.data;
     // 这里可以根据后端的数据结构进行相应的处理
-    return res;
+    if (res.code !== 0) {
+      return message.error(res.message)
+    }
+    return res.data;
   },
   (error) => {
     // 处理响应错误
@@ -50,14 +54,14 @@ export const request = async <T = any>(config: AxiosRequestConfig): Promise<T> =
 };
 
 // 导出便捷方法
-export const get = <T = any>(url: string, params?: any) => 
+export const get = <T = any>(url: string, params?: any) =>
   request<T>({ method: 'GET', url, params });
 
-export const post = <T = any>(url: string, data?: any) => 
+export const post = <T = any>(url: string, data?: any) =>
   request<T>({ method: 'POST', url, data });
 
-export const put = <T = any>(url: string, data?: any) => 
+export const put = <T = any>(url: string, data?: any) =>
   request<T>({ method: 'PUT', url, data });
 
-export const del = <T = any>(url: string, params?: any) => 
+export const del = <T = any>(url: string, params?: any) =>
   request<T>({ method: 'DELETE', url, params });

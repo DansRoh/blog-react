@@ -1,12 +1,20 @@
 import { lazy } from 'react'
+import layoutRouter from './layoutRouter'
 
 export interface RouteConfig {
+  hideInMenu?: boolean
   path: string
-  element?: React.LazyExoticComponent<() => JSX.Element> | (() => JSX.Element)
+  element?: React.LazyExoticComponent<() => JSX.Element> | (() => JSX.Element) | React.FC
   children?: RouteConfig[]
   meta?: {
+    // 菜单标题
     title?: string
+    // 菜单图标
+    menuIcon?: React.ReactNode
+    // 是否需要登录
     requiresAuth?: boolean
+    // 是否在菜单中隐藏
+    hideInMenu?: boolean
     [key: string]: any
   }
 }
@@ -14,10 +22,11 @@ export interface RouteConfig {
 const routes: RouteConfig[] = [
   {
     path: '/',
-    element: lazy(() => import('@/pages/Home')),
+    element: lazy(() => import('@/components/Layout')),
     meta: {
       title: '首页'
     },
+    children: layoutRouter
   },
   {
     path: 'login',
