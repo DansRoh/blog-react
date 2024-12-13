@@ -1,4 +1,4 @@
-import { del, get, post, put } from '@/utils/request'
+import {del, get, patch, post, put} from '@/utils/request'
 
 // 获取文章列表
 export const getArticleList = (params: any) => get('/article', params)
@@ -23,3 +23,20 @@ export const getArticleCatePage = (params: any) => get('/article-cate', params)
 
 // 获取标签分类列表
 export const getArticleCateList = () => get('/article-cate/list')
+
+// 新增分类
+export const postArticleCate = (params: any) => post('/article-cate', params)
+
+// 编辑分类
+export const updateArticleCate = (id: string | number, params: any) => patch(`/article-cate/${id}`, params)
+
+// 新增标签
+export const postArticleTag = (params: any) => post('/article-tag', params)
+// 修改标签
+export const updateArticleTag = (id: string | number, params: any) => patch(`/article-tag/${id}`, params)
+
+// 删除标签
+export const delArticleTag = (id: string | number) => del(`/article-tag/${id}`)
+
+// 删除分类
+export const delArticleCate = (id: string | number) => del(`/article-cate/${id}`)

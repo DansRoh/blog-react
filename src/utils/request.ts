@@ -32,7 +32,8 @@ service.interceptors.response.use(
     const res = response.data;
     // 这里可以根据后端的数据结构进行相应的处理
     if (res.code !== 0) {
-      return message.error(res.message)
+      message.error(res.message);
+      throw new Error(res.message)
     }
     return res.data;
   },
@@ -49,7 +50,7 @@ export const request = async <T = any>(config: AxiosRequestConfig): Promise<T> =
     const response = await service(config);
     return response as T;
   } catch (error) {
-    throw error;
+    throw new Error('error' + error)
   }
 };
 
@@ -65,3 +66,6 @@ export const put = <T = any>(url: string, data?: any) =>
 
 export const del = <T = any>(url: string, params?: any) =>
   request<T>({ method: 'DELETE', url, params });
+
+export const patch = <T = any>(url: string, params?: any) =>
+  request<T>({ method: 'PATCH', url, params });
