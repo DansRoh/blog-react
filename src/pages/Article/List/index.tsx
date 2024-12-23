@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { Button, message, Table } from 'antd';
 import { columns, DataType } from './config';
 import { usePagination } from 'ahooks';
-import { deleteArticle, getArticleList } from '@/api/article';
+import {deleteArticle, getArticleList, publicArticle} from '@/api/article';
 import { useNavigate } from 'react-router-dom';
 
 const ArticleList: React.FC = () => {
@@ -18,6 +18,11 @@ const ArticleList: React.FC = () => {
 		refresh();
 	};
 
+	const handlePublic = async (id: number) => {
+		await publicArticle(id)
+		message.success('发布成功')
+	}
+
 	const _columns = useMemo(() => {
 		return columns?.concat({
 			title: '操作',
@@ -27,6 +32,7 @@ const ArticleList: React.FC = () => {
 					<Button type="link" onClick={() => handleEdit(record)}>
 						编辑
 					</Button>
+					<Button type={'link'} onClick={() => handlePublic(record.id as number)}>发布</Button>
 					<Button type="link" onClick={() => handleDelete(record)}>
 						删除
 					</Button>

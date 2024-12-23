@@ -62,6 +62,7 @@ const TagsList = () => {
     <div>
       <Button type={'primary'} onClick={() => setOpen(true)}>新增</Button>
       <Table
+        rowKey={'id'}
         dataSource={data?.list}
         loading={loading}
         columns={_columns}

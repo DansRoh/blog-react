@@ -33,19 +33,19 @@ const ArticleAdd = () => {
 				</Form.Item>
 				<Form.Item
 					label="分类"
-					name="category"
+					name="categoryIds"
 					rules={[{ required: true, message: '请输入分类' }]}
 					wrapperCol={{ span: 8 }}
 				>
-					<Select options={cateList} fieldNames={{ label: 'name', value: 'id' }} />
+					<Select mode={'multiple'} options={cateList} fieldNames={{ label: 'name', value: 'id' }} />
 				</Form.Item>
 				<Form.Item
 					label="标签"
-					name="tags"
+					name="tagIds"
 					rules={[{ required: true, message: '请输入标签' }]}
 					wrapperCol={{ span: 8 }}
 				>
-					<Select options={tagList} fieldNames={{ label: 'name', value: 'id' }} />
+					<Select mode={'multiple'} options={tagList} fieldNames={{ label: 'name', value: 'id' }} />
 				</Form.Item>
 				<Form.Item
 					label="内容"
