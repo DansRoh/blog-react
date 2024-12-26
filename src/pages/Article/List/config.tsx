@@ -1,4 +1,4 @@
-import type { TableProps } from 'antd';
+import {TableProps, Tag} from 'antd';
 import dayjs from 'dayjs';
 
 export interface DataType {
@@ -8,6 +8,12 @@ export interface DataType {
   address: string;
   tags: string[];
   id?: number;
+}
+
+const statusColorEnum: {[key: string]: string} = {
+  '未发布': 'orange',
+  '已发布': 'success',
+  '发布中': 'processing',
 }
 
 export const columns: TableProps<DataType>['columns'] = [
@@ -41,5 +47,11 @@ export const columns: TableProps<DataType>['columns'] = [
     title: '内容',
     key: 'content',
     dataIndex: 'content',
+  },
+  {
+    title: '状态',
+    key: 'status',
+    dataIndex: 'status',
+    render: (_) => <Tag color={statusColorEnum[_]} bordered={false}>{_}</Tag>
   }
 ];

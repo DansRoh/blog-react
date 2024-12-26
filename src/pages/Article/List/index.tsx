@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { Button, message, Table } from 'antd';
 import { columns, DataType } from './config';
 import { usePagination } from 'ahooks';
-import {deleteArticle, getArticleList, publicArticle} from '@/api/article';
+import {deleteArticle, getArticleList, publishArticle} from '@/api/article';
 import { useNavigate } from 'react-router-dom';
 
 const ArticleList: React.FC = () => {
@@ -19,7 +19,7 @@ const ArticleList: React.FC = () => {
 	};
 
 	const handlePublic = async (id: number) => {
-		await publicArticle(id)
+		await publishArticle(id)
 		message.success('发布成功')
 	}
 

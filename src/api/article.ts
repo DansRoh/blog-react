@@ -42,4 +42,4 @@ export const delArticleTag = (id: string | number) => del(`/article-tag/${id}`)
 export const delArticleCate = (id: string | number) => del(`/article-cate/${id}`)
 
 // 发布
-export const publicArticle = (id: number) => get(`/article/public/${id}`)
+export const publishArticle = (id: number) => get(`/article/publish/${id}`)

@@ -4,7 +4,7 @@ import { message } from 'antd';
 // 创建 axios 实例
 const service = axios.create({
   baseURL: import.meta.env.VITE_BASE_API, // API 的基础URL
-  timeout: 5000, // 请求超时时间
+  timeout: 50000, // 请求超时时间
 });
 
 // 请求拦截器
