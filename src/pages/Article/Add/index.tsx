@@ -47,6 +47,9 @@ const ArticleAdd = () => {
 				>
 					<Select mode={'multiple'} options={tagList} fieldNames={{ label: 'name', value: 'id' }} />
 				</Form.Item>
+				<Form.Item label={'封面'} name={'cover'}>
+					<Input />
+				</Form.Item>
 				<Form.Item
 					label="内容"
 					name="content"
