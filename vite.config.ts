@@ -13,5 +13,5 @@ export default defineConfig({
       styl: {},
     },
   },
-  base: process.env.VITE_BASE_URL,
+  base: '/blog-admin/'
 })
